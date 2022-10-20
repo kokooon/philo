@@ -6,18 +6,19 @@
 /*   By: gmarzull <gmarzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:03:04 by gmarzull          #+#    #+#             */
-/*   Updated: 2022/09/26 18:42:06 by gmarzull         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:16:58 by gmarzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	get_time(t_philo	*philo)
+long long	get_time(void)
 {
-	long long	ms;
+	struct timeval	tv;
+	long long		ms;
 
-	gettimeofday(&philo->tv, NULL);
-	ms = philo->tv.tv_sec * 1000 + philo->tv.tv_usec / 1000;
+	gettimeofday(&tv, NULL);
+	ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (ms);
 }
 
@@ -48,4 +49,20 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (r * n);
+}
+
+void	print(t_philo *philo, char *str)
+{
+	printf("%llu %d %s\n", get_time()
+		- philo->data->t_start, philo->num, str);
+}
+
+void	ft_usleep(long long time)
+{
+	long long	livetime;
+
+	livetime = get_time();
+	usleep(time * 900);
+	while (time > get_time() - livetime)
+		usleep(90);
 }
