@@ -6,7 +6,7 @@
 #    By: gmarzull <gmarzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 11:44:11 by gmarzull          #+#    #+#              #
-#    Updated: 2022/09/26 19:32:39 by gmarzull         ###   ########.fr        #
+#    Updated: 2022/10/25 14:45:15 by gmarzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ HEADER	= 	philo.h
 
 CC		= 	gcc
 
-FLAGS	= 	-Wall -Wextra -Werror -g3
+FLAGS	= 	-Wall -Wextra -Werror -Werror -Wextra -Wall
 LINKER	=	 -fsanitize=address
 
 all:		$(NAME)

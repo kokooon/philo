@@ -6,7 +6,7 @@
 /*   By: gmarzull <gmarzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:45:09 by gmarzull          #+#    #+#             */
-/*   Updated: 2022/09/22 12:17:20 by gmarzull         ###   ########.fr       */
+/*   Updated: 2022/10/22 15:09:55 by gmarzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	check_all(char **argv)
 		printf("Wrong arguments. Numbers need to be greater than 0.\n");
 		return (0);
 	}
+	return (1);
 }
 
 int	check_nb(char **argv)

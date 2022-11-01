@@ -6,7 +6,7 @@
 /*   By: gmarzull <gmarzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:03:04 by gmarzull          #+#    #+#             */
-/*   Updated: 2022/10/20 14:16:58 by gmarzull         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:27:55 by gmarzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ int	ft_atoi(const char *str)
 }
 
 void	print(t_philo *philo, char *str)
-{
+{	
+	pthread_mutex_lock(&(philo->info->print));
 	printf("%llu %d %s\n", get_time()
-		- philo->data->t_start, philo->num, str);
+		- philo->info->t_start, philo->num, str);
+	pthread_mutex_unlock(&(philo->info->print));
 }
 
 void	ft_usleep(long long time)
@@ -65,4 +67,28 @@ void	ft_usleep(long long time)
 	usleep(time * 900);
 	while (time > get_time() - livetime)
 		usleep(90);
+}
+
+void	free_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_philo)
+		pthread_join(data->philo[i++].thread_id, NULL);
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_mutex_unlock(&(data->forks[i]));
+		pthread_mutex_destroy(&(data->forks[i]));
+		pthread_mutex_unlock(&(data->end[i]));
+		pthread_mutex_destroy(&(data->end[i]));
+		i++;
+	}
+	pthread_mutex_unlock(&data->print);
+	pthread_mutex_destroy(&(data->print));
+	free(data->philo);
+	free(data->forks);
+	free(data->end);
+	free(data);
 }
